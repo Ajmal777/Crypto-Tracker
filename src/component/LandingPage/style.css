@@ -1,0 +1,110 @@
+.flex-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 0.5rem 3rem;
+}
+
+.track-crypto-heading,
+.real-time-heading {
+    font-size: 6.5rem;
+    margin: 0;
+}
+
+.track-crypto-heading {
+    animation: gradient 12s ease-in-out infinite alternate;
+    background: linear-gradient(90deg,#08c0d0,#0057ff,#fb184e,#fa03e6);
+    -webkit-background-clip: text;
+    background-size: 400% 100%;
+    color: transparent;
+    transition: color .1s ease-in-out,opacity .1s ease-in-out;
+}
+@keyframes gradient{
+    0%{
+        background-position: 100% 0;
+    }
+    100%{
+        background-position: 12% 100%;
+    }
+}
+.real-time-heading {
+    color: var(--white);
+}
+
+.info-text {
+    font-size: 1rem;
+    color: var(--grey);
+}
+
+.btn-flex {
+    display: flex;
+    justify-content: flex-start;
+    gap: 1.5rem;
+    align-items: center;
+    margin-top: 2rem;
+}
+
+.phone-container {
+    position: relative;
+    width: 50%;
+    padding: 1rem;
+}
+
+.iphone {
+    position: absolute;
+    width: 45%;
+    min-width: 250px;
+    z-index: 2;
+    right: 0;
+}
+.gradient {
+    position: absolute;
+    width: 35%;
+    min-width: 200px;
+    top: 7rem;
+    right: 0;
+}
+
+@media (max-width: 1200px) {
+    .track-crypto-heading,
+    .real-time-heading {
+        font-size: 5rem;
+        margin: 0;
+    }
+}
+
+@media (max-width: 1000px){
+    .gradient {
+        top: 6rem;
+    }    
+}
+
+@media (max-width: 800px){
+    .left-component{
+        width: 100%;
+    }
+    .info-text{
+        text-align: center;
+    }
+    .btn-flex{
+        justify-content: center;
+    }
+    .track-crypto-heading,
+    .real-time-heading {
+        font-size: 3rem;
+        text-align: center;
+    }
+    .flex-info{
+        flex-direction: column;
+        margin-top: 3rem;
+    }
+    .phone-container{
+        display: flex;
+        margin: auto;
+        margin-top: 2rem;
+        justify-content: center;
+    }
+    .iphone, .gradient{
+        right: auto;
+    }
+}
