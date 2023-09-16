@@ -33,32 +33,40 @@ function SelectCoins({ crypto1, crypto2, handleCoinChange }) {
 
     return (
         <div className="coins-flex">
-            <p>Crypto 1</p>
-            <Select
-                sx={styles}
-                label="Crypto 1"
-                value={crypto1}
-                onChange={(event) => handleCoinChange(event, false)}
-            >
-                {allCoins.filter(item => item.id !== crypto2).map((coin, i) => (
-                    <MenuItem key={i} value={coin.id}>
-                        {coin.name}
-                    </MenuItem>
-                ))}
-            </Select>
-            <p>Crypto 2</p>
-            <Select
-                sx={styles}
-                label="Crypto 2"
-                value={crypto2}
-                onChange={(event) => handleCoinChange(event, true)}
-            >
-                {allCoins.filter(item => item.id !== crypto1).map((coin, i) => (
-                    <MenuItem key={i} value={coin.id}>
-                        {coin.name}
-                    </MenuItem>
-                ))}
-            </Select>
+            <div className="compare-coin coin-1">
+                <p>Crypto 1</p>
+                <Select
+                    sx={styles}
+                    label="Crypto 1"
+                    value={crypto1}
+                    onChange={(event) => handleCoinChange(event, false)}
+                >
+                    {allCoins
+                        .filter((item) => item.id !== crypto2)
+                        .map((coin, i) => (
+                            <MenuItem key={i} value={coin.id}>
+                                {coin.name}
+                            </MenuItem>
+                        ))}
+                </Select>
+            </div>
+            <div className="compare-coin coin-2">
+                <p>Crypto 2</p>
+                <Select
+                    sx={styles}
+                    label="Crypto 2"
+                    value={crypto2}
+                    onChange={(event) => handleCoinChange(event, true)}
+                >
+                    {allCoins
+                        .filter((item) => item.id !== crypto1)
+                        .map((coin, i) => (
+                            <MenuItem key={i} value={coin.id}>
+                                {coin.name}
+                            </MenuItem>
+                        ))}
+                </Select>
+            </div>
         </div>
     );
 }

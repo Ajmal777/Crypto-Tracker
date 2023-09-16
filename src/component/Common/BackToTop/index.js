@@ -28,7 +28,7 @@ function BackToTop() {
 
     return (
         <div className="back-to-top-btn" id="myBtn" onClick={topFunction}>
-            <ArrowUpwardRounded style={{ color: "var(--blue)" }} />
+            <ArrowUpwardRounded />
         </div>
     );
 }

@@ -74,6 +74,7 @@ img {
     display: flex;
     justify-content: flex-start;
     align-items: center;
+    flex-wrap: wrap;
     margin: 1.5rem;
     gap: 2rem;
 }

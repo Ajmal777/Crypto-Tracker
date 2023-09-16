@@ -4,6 +4,7 @@ import Home from "./pages/Home";
 import Dashboard from "./pages/Dashboard";
 import CoinPage from "./pages/Coin";
 import ComparePage from "./pages/ComparePage";
+// import WatchList from "./pages/WatchList";
 function App() {
     return (
         <div className="App">
@@ -12,6 +13,7 @@ function App() {
                 <Route path="/" element={<Home/>}/>
                 <Route path="/dashboard" element={<Dashboard/>}/>
                 <Route path="/coin/:id" element={<CoinPage />} />
+                {/* <Route path="/watchlist" element={<WatchList />} /> */}
                 <Route path="/compare" element={<ComparePage />} />
               </Routes>
             </BrowserRouter>
