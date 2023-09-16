@@ -7,8 +7,8 @@ import TrendingDownRoundedIcon from "@mui/icons-material/TrendingDownRounded";
 import { Tooltip } from "@mui/material";
 import { convertNumber } from "../../../functions/convertNumber";
 // import { addToWatchList } from "../../../functions/addToWatchList";
-
-function List({ coin, key }) {
+import { motion } from "framer-motion";
+function List({ coin, delay }) {
     // const [starred, setStarred] = useState(false);
 
     const chipColor = coin.price_change_percentage_24h > 0 ? "green" : "red";
@@ -18,7 +18,17 @@ function List({ coin, key }) {
     //     addToWatchList(starred, setStarred, coin);
     // }
     return (
-        <tr className="list-row">
+        <motion.tr
+            className="list-row"
+            initial={{ opacity: 0, x: -30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{
+                type: "spring",
+                duration: 0.5,
+                delay: 0.25 + delay * 0.1,
+            }}
+        >
             <Tooltip title={coin.name}>
                 <td className="td-image">
                     <img
@@ -105,7 +115,7 @@ function List({ coin, key }) {
                     )}
                 </div>
             </td> */}
-        </tr>
+        </motion.tr>
     );
 }
 

@@ -42,7 +42,7 @@ export default function TabsComponent({ coins }) {
                     <div className="grid-flex">
                         {coins.map((coin, i) => (
                             <Link to={`/coin/${coin.id}`}>
-                                <Grid coin={coin} key={i} />
+                                <Grid coin={coin} key={i} delay={((i + 1) * 3) / 7} />
                             </Link>
                         ))}
                     </div>
@@ -51,7 +51,7 @@ export default function TabsComponent({ coins }) {
                     <table className="list-table">
                         {coins.map((coin, i) => (
                             <Link to={`/coin/${coin.id}`}>
-                                <List coin={coin} key={i} />
+                                <List coin={coin} key={i} delay={((i + 1) * 3) / 7}/>
                             </Link>
                         ))}
                     </table>

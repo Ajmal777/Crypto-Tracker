@@ -2,10 +2,11 @@ import React, { useState } from "react";
 import "./style.css";
 import TrendingUpRoundedIcon from "@mui/icons-material/TrendingUpRounded";
 import TrendingDownRoundedIcon from "@mui/icons-material/TrendingDownRounded";
+import { motion } from "framer-motion";
 // import BookmarkAddOutlinedIcon from "@mui/icons-material/BookmarkAddOutlined";
 // import BookmarkRemoveIcon from "@mui/icons-material/BookmarkRemove";
 // import { addToWatchList } from "../../../functions/addToWatchList";
-function Grid({ coin, key }) {
+function Grid({ coin, delay }) {
     // const [starred, setStarred] = useState(false);
     const chipColor = coin.price_change_percentage_24h > 0 ? "green" : "red";
 
@@ -15,9 +16,19 @@ function Grid({ coin, key }) {
     // }
 
     return (
-        <div className={`grid-container grid-container-${chipColor}`}>
+        <motion.div
+            className={`grid-container grid-container-${chipColor}`}
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{
+                type: "spring",
+                duration: 1,
+                delay: 0.25 + delay * 0.1,
+            }}
+        >
             <div className="info-flex">
-                <img src={coin.image} className="coin-logo" alt={coin.name}/>
+                <img src={coin.image} className="coin-logo" alt={coin.name} />
                 <div className="name-col">
                     <p className="coin-symbol">{coin.symbol}</p>
                     <p className="coin-name">{coin.name}</p>
@@ -59,7 +70,7 @@ function Grid({ coin, key }) {
                     Market Cap : ${coin.market_cap.toLocaleString()}
                 </p>
             </div>
-        </div>
+        </motion.div>
     );
 }
 
