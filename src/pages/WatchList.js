@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Header from "../component/Common/Header";
 import TabsComponent from "../component/Dashboard/Tabs";
-import Loader from "../component/Common/Loader";
 import BackToTop from "../component/Common/BackToTop";
 import { getWatchListData } from "../functions/getWatchListData";
 import { Link } from "react-router-dom";
