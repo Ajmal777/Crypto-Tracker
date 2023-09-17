@@ -9,7 +9,6 @@ import Button from "../component/Common/Button";
 
 function WatchList() {
     const [coins, setCoins] = useState([]);
-    const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
         getData();
@@ -19,7 +18,6 @@ function WatchList() {
         const myCoins = await getWatchListData();
         if (myCoins) {
             setCoins(myCoins);
-            setIsLoading(false);
         }
     };
 
@@ -27,22 +25,18 @@ function WatchList() {
         <>
             <Header />
             <BackToTop />
-            {isLoading ? (
-                <Loader />
-            ) : (
-                <div>
-                    {coins.length > 0 ? (
-                        <TabsComponent coins={coins} />
-                    ) : (
-                        <div className="empty-watchlist">
-                            <h3>Nothing in the watchlist :( </h3>
-                            <Link to="/dashboard">
-                                <Button text="Dashboard" />
-                            </Link>
-                        </div>
-                    )}
-                </div>
-            )}
+            <div>
+                {coins.length > 0 ? (
+                    <TabsComponent coins={coins} />
+                ) : (
+                    <div className="empty-watchlist">
+                        <h3>Nothing in the watchlist :( </h3>
+                        <Link to="/dashboard">
+                            <Button text="Dashboard" />
+                        </Link>
+                    </div>
+                )}
+            </div>
         </>
     );
 }
