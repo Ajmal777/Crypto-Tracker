@@ -50,6 +50,7 @@ function CoinPage() {
     };
 
     const handlePriceTypeChange = async (event, newType) => {
+        if(!newType) return;
         setIsLoading(true);
         setPriceType(newType);
         const prices = await getCoinPrices(id, days, newType);

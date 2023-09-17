@@ -109,12 +109,3 @@
     font-size: 1rem;
     font-weight: 500;
 }
-.add-to-watchlist{
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 0.5rem;
-    transition: all 0.3s;
-    margin-left: auto;
-}

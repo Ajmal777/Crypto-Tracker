@@ -1,10 +1,12 @@
+import { checkWatchList } from "./checkWatchList";
+
 export const addToWatchList = (starred, setStarred, coin) =>{
     let watchList = JSON.parse(localStorage.getItem("watchListCoins"));
     if (!starred) {
         if (!watchList) {
             watchList = [];
         }
-        if(!check(watchList, coin)){
+        if(!checkWatchList(coin)){
             watchList.push(coin);
         }
         localStorage.setItem("watchListCoins", JSON.stringify(watchList));
@@ -14,11 +16,4 @@ export const addToWatchList = (starred, setStarred, coin) =>{
         localStorage.setItem("watchListCoins", JSON.stringify(watchList));
         setStarred(false);
     }
-}
-
-function check(watchList, coin){
-    for(const item of watchList){
-        if(item.id === coin.id) return true;
-    }
-    return false;
 }

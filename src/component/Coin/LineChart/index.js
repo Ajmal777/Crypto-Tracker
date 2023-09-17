@@ -1,6 +1,6 @@
 import React from "react";
 import { Line } from "react-chartjs-2";
-import { Chart as CharJS } from "chart.js/auto";
+import { Chart as ChartJS } from "chart.js/auto";
 import "./style.css";
 import { convertNumber } from "../../../functions/convertNumber";
 function LineChart({ chartData, priceType, multiAxis }) {
@@ -30,7 +30,7 @@ function LineChart({ chartData, priceType, multiAxis }) {
             },
             crypto2: {
                 type: "linear",
-                display: true,
+                display: multiAxis ? true : false,
                 position: "right",
                 ticks: {
                     callback: function (value, index, ticks) {

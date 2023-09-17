@@ -1,19 +1,28 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./style.css";
 import TrendingUpRoundedIcon from "@mui/icons-material/TrendingUpRounded";
 import TrendingDownRoundedIcon from "@mui/icons-material/TrendingDownRounded";
 import { motion } from "framer-motion";
-// import BookmarkAddOutlinedIcon from "@mui/icons-material/BookmarkAddOutlined";
-// import BookmarkRemoveIcon from "@mui/icons-material/BookmarkRemove";
-// import { addToWatchList } from "../../../functions/addToWatchList";
+import { checkWatchList } from "../../../functions/checkWatchList";
+import BookmarkAddOutlinedIcon from "@mui/icons-material/BookmarkAddOutlined";
+import BookmarkRemoveIcon from "@mui/icons-material/BookmarkRemove";
+import { addToWatchList } from "../../../functions/addToWatchList";
+import { Tooltip } from "@mui/material";
 function Grid({ coin, delay }) {
-    // const [starred, setStarred] = useState(false);
+    const [starred, setStarred] = useState(false);
     const chipColor = coin.price_change_percentage_24h > 0 ? "green" : "red";
 
-    // function handleClick(event) {
-    //     event.stopPropagation();
-    //     addToWatchList(starred, setStarred, coin);
-    // }
+    useEffect(() => {
+        checkStarred();
+    }, []);
+
+    function checkStarred() {
+        setStarred(checkWatchList(coin));
+    }
+    function handleClick(e) {
+        e.preventDefault();
+        addToWatchList(starred, setStarred, coin);
+    }
 
     return (
         <motion.div
@@ -33,36 +42,46 @@ function Grid({ coin, delay }) {
                     <p className="coin-symbol">{coin.symbol}</p>
                     <p className="coin-name">{coin.name}</p>
                 </div>
-                {/* <div
-                    className={`add-to-watchlist chip-${chipColor}`}
-                    onClick={(e) => handleClick(e)}
+                <Tooltip
+                    title={
+                        starred ? "Remove from watchlist" : "Add to watchlist"
+                    }
                 >
-                    {!starred ? (
-                        <BookmarkAddOutlinedIcon />
-                    ) : (
-                        <BookmarkRemoveIcon />
-                    )}
-                </div> */}
+                    <div
+                        className={`add-to-watchlist chip-${chipColor}`}
+                        onClick={(e) => handleClick(e)}
+                    >
+                        {!starred ? (
+                            <BookmarkAddOutlinedIcon />
+                        ) : (
+                            <BookmarkRemoveIcon />
+                        )}
+                    </div>
+                </Tooltip>
             </div>
-            <div className="chip-flex">
-                <div className={`price-chip chip-${chipColor}`}>
-                    {coin.price_change_percentage_24h.toFixed(2)}%
+            <Tooltip title="Price change in 24hrs">
+                <div className="chip-flex">
+                    <div className={`price-chip chip-${chipColor}`}>
+                        {coin.price_change_percentage_24h.toFixed(2)}%
+                    </div>
+                    <div className={`icon-chip chip-${chipColor}`}>
+                        {chipColor === "green" ? (
+                            <TrendingUpRoundedIcon />
+                        ) : (
+                            <TrendingDownRoundedIcon />
+                        )}
+                    </div>
                 </div>
-                <div className={`icon-chip chip-${chipColor}`}>
-                    {chipColor === "green" ? (
-                        <TrendingUpRoundedIcon />
-                    ) : (
-                        <TrendingDownRoundedIcon />
-                    )}
-                </div>
-            </div>
+            </Tooltip>
             <div className="info-container">
-                <h3
-                    className={`coin-price`}
-                    style={{ color: `var(--${chipColor})` }}
-                >
-                    ${coin.current_price.toLocaleString()}
-                </h3>
+                <Tooltip title="Current price">
+                    <h3
+                        className={`coin-price`}
+                        style={{ color: `var(--${chipColor})` }}
+                    >
+                        ${coin.current_price.toLocaleString()}
+                    </h3>
+                </Tooltip>
                 <p className="total-volume">
                     Total Volume : {coin.total_volume.toLocaleString()}
                 </p>

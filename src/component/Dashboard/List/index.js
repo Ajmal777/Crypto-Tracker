@@ -1,22 +1,28 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./style.css";
-// import BookmarkAddOutlinedIcon from "@mui/icons-material/BookmarkAddOutlined";
-// import BookmarkRemoveIcon from "@mui/icons-material/BookmarkRemove";
+import BookmarkAddOutlinedIcon from "@mui/icons-material/BookmarkAddOutlined";
+import BookmarkRemoveIcon from "@mui/icons-material/BookmarkRemove";
 import TrendingUpRoundedIcon from "@mui/icons-material/TrendingUpRounded";
 import TrendingDownRoundedIcon from "@mui/icons-material/TrendingDownRounded";
 import { Tooltip } from "@mui/material";
 import { convertNumber } from "../../../functions/convertNumber";
-// import { addToWatchList } from "../../../functions/addToWatchList";
+import { addToWatchList } from "../../../functions/addToWatchList";
 import { motion } from "framer-motion";
+import { checkWatchList } from "../../../functions/checkWatchList";
 function List({ coin, delay }) {
-    // const [starred, setStarred] = useState(false);
-
+    const [starred, setStarred] = useState(false);
     const chipColor = coin.price_change_percentage_24h > 0 ? "green" : "red";
+    useEffect(() => {
+        checkStarred();
+    }, []);
 
-    // function handleClick(e){
-    //     e.stopPropagation();
-    //     addToWatchList(starred, setStarred, coin);
-    // }
+    function checkStarred() {
+        setStarred(checkWatchList(coin));
+    }
+    function handleClick(e) {
+        e.preventDefault();
+        addToWatchList(starred, setStarred, coin);
+    }
     return (
         <motion.tr
             className="list-row"
@@ -103,18 +109,22 @@ function List({ coin, delay }) {
                     </p>
                 </td>
             </Tooltip>
-            {/* <td className="watchlist-btn">
-                <div
-                    className={`add-to-watchlist chip-${chipColor}`}
-                    onClick={handleClick}
-                >
-                    {!starred ? (
-                        <BookmarkAddOutlinedIcon />
-                    ) : (
-                        <BookmarkRemoveIcon />
-                    )}
-                </div>
-            </td> */}
+            <Tooltip
+                title={starred ? "Remove from watchlist" : "Add to watchlist"}
+            >
+                <td className="watchlist-btn">
+                    <div
+                        className={`add-to-watchlist chip-${chipColor}`}
+                        onClick={handleClick}
+                    >
+                        {!starred ? (
+                            <BookmarkAddOutlinedIcon />
+                        ) : (
+                            <BookmarkRemoveIcon />
+                        )}
+                    </div>
+                </td>
+            </Tooltip>
         </motion.tr>
     );
 }

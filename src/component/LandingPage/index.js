@@ -5,6 +5,7 @@ import Gradient from "../../assets/gradient.png";
 import iPhone from "../../assets/iphone.png";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
+import ShareModal from "../Common/Modal";
 function MainComponent() {
     return (
         <div className="flex-info">
@@ -43,7 +44,7 @@ function MainComponent() {
                     <Link to="/dashboard">
                         <Button text="Dashboard" />
                     </Link>
-                    <Button text="share" outLined={true} />
+                    <ShareModal/>
                 </motion.div>
             </div>
             <div className="phone-container">

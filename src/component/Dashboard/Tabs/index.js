@@ -47,7 +47,7 @@ export default function TabsComponent({ coins }) {
                         ))}
                     </div>
                 </TabPanel>
-                <TabPanel value="list">
+                <TabPanel value="list" className="table-wrapper">
                     <table className="list-table">
                         {coins.map((coin, i) => (
                             <Link to={`/coin/${coin.id}`}>

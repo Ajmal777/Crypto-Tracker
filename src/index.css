@@ -78,3 +78,20 @@ img {
     margin: 1.5rem;
     gap: 2rem;
 }
+
+.add-to-watchlist{
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0.5rem;
+    transition: all 0.3s;
+    margin-left: auto;
+}
+
+.empty-watchlist{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
