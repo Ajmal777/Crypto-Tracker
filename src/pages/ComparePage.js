@@ -20,7 +20,7 @@ function ComparePage() {
     const [isLoading, setIsLoading] = useState(true);
     const [priceType, setPriceType] = useState("prices");
     const [chartData, setChartData] = useState({});
-
+    const [flag, setFlag] = useState(false);
     useEffect(() => {
         getData();
     }, []);
@@ -35,7 +35,14 @@ function ComparePage() {
                 coinObject(setCrypto2Data, data2);
                 const prices1 = await getCoinPrices(crypto1, days, priceType);
                 const prices2 = await getCoinPrices(crypto2, days, priceType);
-                settingChartData(setChartData, prices1, prices2, data1.name, data2.name);
+                settingChartData(
+                    setChartData,
+                    prices1,
+                    prices2,
+                    data1.name,
+                    data2.name
+                );
+                setFlag(true);
                 setIsLoading(false);
             }
         }
@@ -48,35 +55,69 @@ function ComparePage() {
             setCrypto2(id);
             const data = await getCoinData(id);
             coinObject(setCrypto2Data, data);
-            const prices1 = await getCoinPrices(crypto1, days, priceType);
-            const prices2 = await getCoinPrices(crypto2, days, priceType);
-            if (prices1 && prices2) {
-                setIsLoading(false);
-            }
         } else {
             setCrypto1(id);
             const data = await getCoinData(id);
             coinObject(setCrypto1Data, data);
-            setIsLoading(false);
         }
     };
+
+    useEffect(() => {
+        if(flag){
+            async function run(){
+                const prices1 = await getCoinPrices(crypto1, days, priceType);
+                const prices2 = await getCoinPrices(crypto2, days, priceType);
+                if (prices1 && prices2) {
+                    settingChartData(
+                        setChartData,
+                        prices1,
+                        prices2,
+                        crypto1Data.name,
+                        crypto2Data.name
+                    );
+                    setIsLoading(false);
+                }
+            }
+            run();
+        }
+    }, [crypto1Data, crypto2Data])
 
     async function handleDaysChange(event) {
         setIsLoading(true);
         setDays(event.target.value);
-        const prices1 = await getCoinPrices(crypto1, event.target.value, priceType);
-        const prices2 = await getCoinPrices(crypto2, event.target.value, priceType);
-        settingChartData(setChartData, prices1, prices2, crypto1Data.name, crypto2Data.name);
+        const prices1 = await getCoinPrices(
+            crypto1,
+            event.target.value,
+            priceType
+        );
+        const prices2 = await getCoinPrices(
+            crypto2,
+            event.target.value,
+            priceType
+        );
+        settingChartData(
+            setChartData,
+            prices1,
+            prices2,
+            crypto1Data.name,
+            crypto2Data.name
+        );
         setIsLoading(false);
     }
 
     const handlePriceTypeChange = async (event, newType) => {
-        if(!newType) return;
+        if (!newType) return;
         setIsLoading(true);
         setPriceType(newType);
         const prices1 = await getCoinPrices(crypto1, days, newType);
         const prices2 = await getCoinPrices(crypto2, days, newType);
-        settingChartData(setChartData, prices1, prices2, crypto1Data.name, crypto2Data.name);
+        settingChartData(
+            setChartData,
+            prices1,
+            prices2,
+            crypto1Data.name,
+            crypto2Data.name
+        );
         setIsLoading(false);
     };
 
@@ -106,7 +147,7 @@ function ComparePage() {
                         <List coin={crypto2Data} />
                     </div>
                     <div className="grey-wrapper">
-                    <TogglePriceType
+                        <TogglePriceType
                             priceType={priceType}
                             handlePriceTypeChange={handlePriceTypeChange}
                         />

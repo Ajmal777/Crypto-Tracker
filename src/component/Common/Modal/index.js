@@ -53,7 +53,7 @@ const ShareModal = () => {
                     }}
                 >
                     <Space direction="vertical" style={{width: "100%"}}>
-                        <Space wrap style={{justifyContent: "space-between", width: "100%"}}>
+                        <Space wrap style={{justifyContent: "center", gap: "1.5rem",width: "100%"}}>
                             <Tooltip title="Facebook">
                                 <Button
                                     ghost={true}
