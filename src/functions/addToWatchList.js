@@ -11,9 +11,11 @@ export const addToWatchList = (starred, setStarred, coin) =>{
         }
         localStorage.setItem("watchListCoins", JSON.stringify(watchList));
         setStarred(true);
+        return true;
     } else {
         watchList = watchList.filter((item) => item.id !== coin.id);
         localStorage.setItem("watchListCoins", JSON.stringify(watchList));
         setStarred(false);
+        return false;
     }
 }

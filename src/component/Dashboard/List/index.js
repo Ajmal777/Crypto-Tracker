@@ -9,9 +9,26 @@ import { convertNumber } from "../../../functions/convertNumber";
 import { addToWatchList } from "../../../functions/addToWatchList";
 import { motion } from "framer-motion";
 import { checkWatchList } from "../../../functions/checkWatchList";
+import { message } from "antd";
 function List({ coin, delay }) {
     const [starred, setStarred] = useState(false);
     const chipColor = coin.price_change_percentage_24h > 0 ? "green" : "red";
+
+    const [messageApi, contextHolder] = message.useMessage();
+    const coinAdd = () => {
+        messageApi.open({
+            type: "success",
+            content: "Successfully added to the watchlist",
+        });
+    };
+
+    const coinRemove = () => {
+        messageApi.open({
+            type: "success",
+            content: "Successfully removed from the watchlist",
+        });
+    };
+
     useEffect(() => {
         checkStarred();
     }, []);
@@ -21,7 +38,9 @@ function List({ coin, delay }) {
     }
     function handleClick(e) {
         e.preventDefault();
-        addToWatchList(starred, setStarred, coin);
+        if (addToWatchList(starred, setStarred, coin)) {
+            coinAdd();
+        } else coinRemove();
     }
     return (
         <motion.tr
@@ -35,6 +54,7 @@ function List({ coin, delay }) {
                 delay: 0.25 + delay * 0.1,
             }}
         >
+            {contextHolder}
             <Tooltip title={coin.name}>
                 <td className="td-image">
                     <img

@@ -8,9 +8,25 @@ import BookmarkAddOutlinedIcon from "@mui/icons-material/BookmarkAddOutlined";
 import BookmarkRemoveIcon from "@mui/icons-material/BookmarkRemove";
 import { addToWatchList } from "../../../functions/addToWatchList";
 import { Tooltip } from "@mui/material";
+import { message } from "antd";
 function Grid({ coin, delay }) {
     const [starred, setStarred] = useState(false);
     const chipColor = coin.price_change_percentage_24h > 0 ? "green" : "red";
+
+    const [messageApi, contextHolder] = message.useMessage();
+    const coinAdd = () => {
+        messageApi.open({
+            type: "success",
+            content: "Successfully added to the watchlist",
+        });
+    };
+
+    const coinRemove = () => {
+        messageApi.open({
+            type: "success",
+            content: "Successfully removed from the watchlist",
+        });
+    };
 
     useEffect(() => {
         checkStarred();
@@ -21,7 +37,10 @@ function Grid({ coin, delay }) {
     }
     function handleClick(e) {
         e.preventDefault();
-        addToWatchList(starred, setStarred, coin);
+        if (addToWatchList(starred, setStarred, coin)) {
+            coinAdd();
+        }
+        else coinRemove();
     }
 
     return (
@@ -36,6 +55,7 @@ function Grid({ coin, delay }) {
                 delay: 0.25 + delay * 0.1,
             }}
         >
+            {contextHolder}
             <div className="info-flex">
                 <img src={coin.image} className="coin-logo" alt={coin.name} />
                 <div className="name-col">
