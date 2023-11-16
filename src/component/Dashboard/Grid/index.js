@@ -30,7 +30,7 @@ function Grid({ coin, delay }) {
 
     useEffect(() => {
         checkStarred();
-    }, []);
+    }, [coin]);
 
     function checkStarred() {
         setStarred(checkWatchList(coin));
