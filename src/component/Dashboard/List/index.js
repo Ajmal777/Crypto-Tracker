@@ -31,7 +31,7 @@ function List({ coin, delay }) {
 
     useEffect(() => {
         checkStarred();
-    }, []);
+    }, [coin]);
 
     function checkStarred() {
         setStarred(checkWatchList(coin));
